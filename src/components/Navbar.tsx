@@ -39,7 +39,11 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <a href="#" className="flex items-center">
-              <img src={logo} alt="The Head Story" className="h-10 w-auto" />
+              <img 
+                src={logo} 
+                alt="The Head Story" 
+                className="h-10 w-auto drop-shadow-[0_0_10px_rgba(255,107,0,0.3)]" 
+              />
             </a>
 
             {/* Desktop Navigation */}

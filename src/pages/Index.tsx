@@ -3,8 +3,9 @@ import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import ProofSection from "@/components/ProofSection";
 import WorkSection from "@/components/WorkSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import WhyUsSection from "@/components/WhyUsSection";
-import CTASection from "@/components/CTASection";
+import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 
@@ -16,8 +17,9 @@ const Index = () => {
       <ServicesSection />
       <ProofSection />
       <WorkSection />
+      <TestimonialsSection />
       <WhyUsSection />
-      <CTASection />
+      <ContactForm />
       <Footer />
       <StickyCTA />
     </main>
