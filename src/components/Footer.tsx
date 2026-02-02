@@ -29,7 +29,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="bg-card/50 border-t border-border">
+    <footer className="relative bg-card border-t border-border z-50">
       <div className="section-container py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
@@ -39,7 +39,7 @@ const Footer = () => {
               Creative that ships. Tech that works. We help brands, shops &
               creators grow through content, code & consistency.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-3">
               <a

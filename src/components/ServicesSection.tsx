@@ -50,17 +50,33 @@ const ServiceCard = ({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const glowHSL =
+    service.title === 'Social & Content'
+      ? '28 100% 50%'
+      : service.title === 'Tech & Websites'
+        ? '200 100% 50%'
+        : '270 100% 70%';
+
+  const shadowColor =
+    service.title === 'Social & Content'
+      ? 'hover:shadow-orange-500/20'
+      : service.title === 'Tech & Websites'
+        ? 'hover:shadow-blue-500/20'
+        : 'hover:shadow-purple-500/20';
+
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="card-glow group relative p-8 cursor-pointer"
+      className={`card-glow group relative p-8 cursor-pointer hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl ${shadowColor}`}
+      style={{ '--glow': glowHSL } as React.CSSProperties}
+      data-glow={glowHSL}
     >
       {/* Icon */}
       <div
-        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 transition-all duration-300 shadow-lg group-hover:shadow-xl`}
       >
         <service.icon size={28} className="text-white" />
       </div>
@@ -82,16 +98,30 @@ const ServiceCard = ({
         {service.features.map((feature, i) => (
           <span
             key={i}
-            className="px-3 py-1 text-xs font-medium bg-secondary rounded-full text-secondary-foreground"
+            className="px-3 py-1.5 text-xs font-medium bg-secondary rounded-full text-secondary-foreground hover:bg-primary/20 hover:text-primary hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             {feature}
           </span>
         ))}
       </div>
 
-      {/* Hover Gradient Line */}
       <div
-        className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${service.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-b-lg`}
+        className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-b-lg`}
+        style={{
+          boxShadow: '0 0 20px transparent',
+          transition: 'transform 0.5s, box-shadow 0.5s'
+        }}
+        onMouseEnter={(e) => {
+          const shadow = service.title === 'Social & Content'
+            ? '0 0 20px rgba(249, 115, 22, 0.5)'
+            : service.title === 'Tech & Websites'
+              ? '0 0 20px rgba(59, 130, 246, 0.5)'
+              : '0 0 20px rgba(168, 85, 247, 0.5)';
+          e.currentTarget.style.boxShadow = shadow;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = '0 0 20px transparent';
+        }}
       />
     </motion.div>
   );
@@ -102,12 +132,12 @@ const ServicesSection = () => {
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="services" className="py-24 relative">
-      {/* Background Elements */}
+    <section id="services" className="py-24 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
 
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,107,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,107,0,0.03)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_80%)]" />
+
       <div className="section-container relative z-10">
-        {/* Section Header */}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 30 }}
@@ -128,7 +158,6 @@ const ServicesSection = () => {
           </p>
         </motion.div>
 
-        {/* Services Grid */}
         <div className="grid md:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />

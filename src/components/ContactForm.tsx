@@ -80,14 +80,14 @@ const ContactForm = () => {
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
+
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-background via-background/50 to-transparent pointer-events-none z-[1]" />
+
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[200px]" />
 
-      {/* Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,107,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,107,0,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-      {/* Decorative Dots - MarkitUp inspired */}
       <div className="absolute left-10 top-1/4 hidden lg:grid grid-cols-6 gap-2">
         {Array.from({ length: 24 }).map((_, i) => (
           <div
@@ -152,13 +152,11 @@ const ContactForm = () => {
               </a>
             </div>
 
-            {/* Response Time Note */}
             <p className="mt-8 text-sm text-muted-foreground">
               ⚡ Average response time: Under 24 hours
             </p>
           </motion.div>
 
-          {/* Right Side - Form */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -176,7 +174,6 @@ const ContactForm = () => {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                {/* Name */}
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name *</Label>
                   <Input
@@ -190,7 +187,6 @@ const ContactForm = () => {
                   />
                 </div>
 
-                {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address *</Label>
                   <Input
@@ -207,7 +203,6 @@ const ContactForm = () => {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                {/* Company */}
                 <div className="space-y-2">
                   <Label htmlFor="company">Company</Label>
                   <Input
@@ -220,7 +215,6 @@ const ContactForm = () => {
                   />
                 </div>
 
-                {/* Position */}
                 <div className="space-y-2">
                   <Label htmlFor="position">Position</Label>
                   <Input
@@ -234,7 +228,6 @@ const ContactForm = () => {
                 </div>
               </div>
 
-              {/* Phone */}
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number *</Label>
                 <Input
@@ -249,7 +242,6 @@ const ContactForm = () => {
                 />
               </div>
 
-              {/* Description */}
               <div className="space-y-2">
                 <Label htmlFor="description">Tell us about your project *</Label>
                 <Textarea
@@ -264,7 +256,6 @@ const ContactForm = () => {
                 />
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}

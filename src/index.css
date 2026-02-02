@@ -1,9 +1,9 @@
+/* The Head Story - Bold, Gen-Z Creative Agency Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* The Head Story - Bold, Gen-Z Creative Agency Design System */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
@@ -109,16 +109,22 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Outfit', sans-serif;
     font-weight: 700;
   }
 }
 
 @layer components {
+
   /* Glowing Orange Button */
   .btn-primary {
     @apply relative inline-flex items-center justify-center px-8 py-4 font-bold text-white uppercase tracking-wider overflow-hidden transition-all duration-300;
@@ -185,7 +191,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(var(--primary) / 0.1), transparent 50%);
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(var(--glow, var(--primary)) / 0.15), transparent 50%);
     opacity: 0;
     transition: opacity 0.3s;
   }
@@ -195,7 +201,7 @@
   }
 
   .card-glow:hover {
-    border-color: hsl(var(--primary) / 0.5);
+    border-color: hsl(var(--glow, var(--primary)) / 0.5);
     transform: translateY(-4px);
     box-shadow: var(--shadow-card);
   }
@@ -277,18 +283,24 @@
 
 /* Keyframe Animations */
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 20px hsl(28 100% 50% / 0.3);
   }
+
   50% {
     box-shadow: 0 0 40px hsl(28 100% 50% / 0.5);
   }
@@ -298,6 +310,7 @@
   0% {
     clip-path: inset(0 100% 0 0);
   }
+
   100% {
     clip-path: inset(0 0 0 0);
   }
@@ -308,6 +321,7 @@
     opacity: 0;
     transform: translateY(40px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -319,6 +333,7 @@
     opacity: 0;
     transform: scale(0.9);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -361,4 +376,112 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary));
+}
+
+/* Marquee Animation */
+.marquee-container {
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-text {
+  display: inline-block;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Custom Cursor Styles */
+.custom-cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-circle {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid hsl(var(--primary) / 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.3s ease,
+    background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-cursor-circle.is-hovering {
+  width: 80px;
+  height: 80px;
+  border-color: hsl(var(--primary));
+  background: transparent;
+  box-shadow: 0 0 30px hsl(var(--primary) / 0.4), inset 0 0 20px hsl(var(--primary) / 0.1);
+}
+
+/* Add subtle scale effect to elements when cursor hovers */
+a:hover,
+button:hover,
+.cursor-pointer:hover,
+.group:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Show default cursor on mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+
+  .custom-cursor-dot,
+  .custom-cursor-circle {
+    display: none;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* Client Logo Ticker Animation */
+@keyframes marquee-ticker {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-ticker 30s linear infinite;
 }
