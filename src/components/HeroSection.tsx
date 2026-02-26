@@ -1,14 +1,11 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useInView } from "framer-motion";
-import { ArrowRight, Play, Star, Award, Instagram, Linkedin, Twitter, Sparkles, X, Video, Zap } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { ArrowRight, Play, Instagram, Linkedin, Sparkles, X, Globe, Zap } from "lucide-react";
 
 const socialLinks = [
   { icon: Instagram, href: "https://instagram.com/theheadstory", label: "Instagram" },
   { icon: Linkedin, href: "https://linkedin.com/company/theheadstory", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com/theheadstory", label: "Twitter" },
-  { icon: FaWhatsapp, href: "https://wa.me/919999999999", label: "WhatsApp" },
 ];
 
 const rotatingWords = ["ships.", "pops.", "sticks.", "sells.", "wins."];
@@ -18,10 +15,11 @@ const rotatingTaglines = [
   "Crafting Digital Excellence",
 ];
 
-const featuredWork = [
-  { id: 2, title: "Product Launch", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" },
-  { id: 3, title: "Social Content", image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=600&fit=crop" },
-  { id: 1, title: "Brand Campaign", image: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&h=600&fit=crop" },
+const backgroundVideos = [
+  "/videos/analytics.mp4",
+  "/videos/editing.mp4",
+  "/videos/shoot.mp4",
+  "/videos/tech.mp4",
 ];
 
 const HeroSection: React.FC = () => {
@@ -46,30 +44,21 @@ const HeroSection: React.FC = () => {
 
   const statsRef = useRef<HTMLDivElement>(null);
   const isStatsInView = useInView(statsRef, { margin: "-100px" });
-  const [videosCount, setVideosCount] = useState(0);
   const [responseTime, setResponseTime] = useState(0);
+  const [deliveryDays, setDeliveryDays] = useState(0);
 
   useEffect(() => {
     if (isStatsInView) {
-      let videoTarget = 999;
       let timeTarget = 24;
-      let videoStart = 0;
       let timeStart = 0;
-      const videoDuration = 2000;
       const timeDuration = 1500;
+      let daysTarget = 7;
+      let daysStart = 0;
+      const daysDuration = 1000;
       const frameRate = 16; // roughly 60fps
 
-      const videoStep = Math.ceil(videoTarget / (videoDuration / frameRate));
       const timeStep = Math.ceil(timeTarget / (timeDuration / frameRate));
-
-      const videoInterval = setInterval(() => {
-        videoStart += videoStep;
-        if (videoStart >= videoTarget) {
-          videoStart = videoTarget;
-          clearInterval(videoInterval);
-        }
-        setVideosCount(videoStart);
-      }, frameRate);
+      const daysStep = Math.ceil(daysTarget / (daysDuration / frameRate));
 
       const timeInterval = setInterval(() => {
         timeStart += timeStep;
@@ -78,11 +67,20 @@ const HeroSection: React.FC = () => {
           clearInterval(timeInterval);
         }
         setResponseTime(timeStart);
-      }, frameRate);
+      }, 58);
+
+      const daysInterval = setInterval(() => {
+        daysStart += daysStep;
+        if (daysStart >= daysTarget) {
+          daysStart = daysTarget;
+          clearInterval(daysInterval);
+        }
+        setDeliveryDays(daysStart);
+      }, 200);
 
       return () => {
-        clearInterval(videoInterval);
         clearInterval(timeInterval);
+        clearInterval(daysInterval);
       };
     }
   }, [isStatsInView]);
@@ -94,13 +92,9 @@ const HeroSection: React.FC = () => {
     const taglineInterval = setInterval(() => {
       setCurrentTaglineIndex((i) => (i + 1) % rotatingTaglines.length);
     }, 3500);
-    const workInterval = setInterval(() => {
-      setCurrentWorkIndex((i) => (i + 1) % featuredWork.length);
-    }, 5000);
     return () => {
       clearInterval(wordInterval);
       clearInterval(taglineInterval);
-      clearInterval(workInterval);
     };
   }, []);
 
@@ -126,7 +120,7 @@ const HeroSection: React.FC = () => {
           }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/10 rounded-full blur-[200px]"
         />
-        <div className="absolute inset-0 opacity-[0.15]">
+        <div className="absolute inset-0 opacity-[0.3]">
           <AnimatePresence>
             <motion.div
               key={currentWorkIndex}
@@ -134,13 +128,18 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.5 }}
-              style={{
-                backgroundImage: `url(${featuredWork[currentWorkIndex].image})`,
-                x: useTransform(mouseX, [0, 1], [-10, 10]),
-                y: useTransform(mouseY, [0, 1], [-10, 10]),
-              }}
-              className="absolute inset-0 bg-cover bg-center"
-            />
+              className="absolute inset-0"
+            >
+              <video
+                autoPlay
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                onEnded={() => setCurrentWorkIndex((i) => (i + 1) % backgroundVideos.length)}
+              >
+                <source src={backgroundVideos[currentWorkIndex]} type="video/mp4" />
+              </video>
+            </motion.div>
           </AnimatePresence>
         </div>
       </div>
@@ -152,7 +151,7 @@ const HeroSection: React.FC = () => {
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-4"
+        className="fixed left-8 bottom-20 z-40 hidden lg:flex flex-col gap-4"
       >
         {socialLinks.map((social, index) => (
           <motion.a
@@ -170,7 +169,6 @@ const HeroSection: React.FC = () => {
             <social.icon size={20} />
           </motion.a>
         ))}
-        <div className="w-px h-16 bg-gradient-to-b from-border to-transparent mx-auto mt-4" />
       </motion.div>
 
       <div className="relative z-10 flex flex-col lg:flex-row items-start justify-between w-full h-full px-6 md:px-12 lg:pl-32 pt-24 pb-12 gap-12">
@@ -248,34 +246,6 @@ const HeroSection: React.FC = () => {
             </motion.p>
           </div>
 
-          {/* Trust Indicators */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="flex flex-wrap items-center gap-6"
-          >
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-orange-600 border-2 border-background" />
-                ))}
-              </div>
-              <span className="text-sm text-muted-foreground">50+ Happy Clients</span>
-            </div>
-            <div className="flex items-center gap-1">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-              ))}
-            </div>
-            <span className="text-sm font-semibold text-foreground">5.0</span>
-            <span className="text-sm text-muted-foreground">(100+ reviews)</span>
-          </motion.div>
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 w-fit">
-            <Award className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Award Winning</span>
-          </div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -291,84 +261,72 @@ const HeroSection: React.FC = () => {
               Start Your Project
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
             </motion.a>
+          </motion.div>
 
-            <motion.button
-              onClick={() => setIsVideoModalOpen(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group px-8 py-4 rounded-full bg-card border-2 border-border hover:border-primary font-bold text-lg transition-all duration-300 flex items-center gap-3 hover:shadow-xl"
+          <motion.div
+            ref={statsRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="flex flex-row gap-4 items-center"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="group relative overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 hover:border-primary/50 rounded-2xl p-6 shadow-2xl hover:shadow-[0_0_40px_rgba(255,107,0,0.2)] transition-all duration-500 w-64 h-40 flex flex-col justify-between"
             >
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
-                <Play className="w-5 h-5 fill-current" />
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Globe className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-widest text-primary font-bold">Website Delivery</div>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <motion.span
+                    key={deliveryDays}
+                    className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400 tabular-nums"
+                  >
+                    {deliveryDays}
+                  </motion.span>
+                  <span className="text-2xl font-black text-foreground">days</span>
+                  <span className="text-xl font-black text-primary">or less</span>
+                </div>
               </div>
-              Watch Showreel
-            </motion.button>
+              <div className="text-xs text-muted-foreground relative z-10">Guaranteed launch. T&C apply*</div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="group relative overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 hover:border-primary/50 rounded-2xl p-6 shadow-2xl hover:shadow-[0_0_40px_rgba(255,107,0,0.2)] transition-all duration-500 w-64 h-40 flex flex-col justify-between"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-widest text-primary font-bold">Response</div>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-black text-primary">&lt;</span>
+                  <motion.div
+                    className="text-5xl font-black text-foreground tabular-nums"
+                    key={responseTime}
+                  >
+                    {responseTime}
+                  </motion.div>
+                  <span className="text-2xl font-bold text-muted-foreground">hrs</span>
+                </div>
+              </div>
+              <div className="text-xs text-muted-foreground relative z-10">Lightning fast replies</div>
+            </motion.div>
           </motion.div>
         </div>
-
-
-        <motion.div
-          ref={statsRef}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="absolute bottom-12 right-24 z-30 hidden lg:flex flex-row gap-6 items-center"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="group relative overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 hover:border-primary/50 rounded-2xl p-6 shadow-2xl hover:shadow-[0_0_40px_rgba(255,107,0,0.2)] transition-all duration-500 w-64 h-40 flex flex-col justify-between"
-          >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Video className="w-5 h-5 text-primary" />
-                </div>
-                <div className="text-[10px] uppercase tracking-widest text-primary font-bold">Videos</div>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <motion.div
-                  className="text-5xl font-black text-foreground tabular-nums"
-                  key={videosCount}
-                >
-                  {videosCount}
-                </motion.div>
-                <span className="text-3xl font-black text-primary">+</span>
-              </div>
-            </div>
-            <div className="text-xs text-muted-foreground relative z-10">Crafted with precision</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="group relative overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 hover:border-primary/50 rounded-2xl p-6 shadow-2xl hover:shadow-[0_0_40px_rgba(255,107,0,0.2)] transition-all duration-500 w-64 h-40 flex flex-col justify-between"
-          >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-primary" />
-                </div>
-                <div className="text-[10px] uppercase tracking-widest text-primary font-bold">Response</div>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-black text-primary">&lt;</span>
-                <motion.div
-                  className="text-5xl font-black text-foreground tabular-nums"
-                  key={responseTime}
-                >
-                  {responseTime}
-                </motion.div>
-                <span className="text-2xl font-bold text-muted-foreground">hrs</span>
-              </div>
-            </div>
-            <div className="text-xs text-muted-foreground relative z-10">Lightning fast replies</div>
-          </motion.div>
-        </motion.div>
       </div>
 
       <AnimatePresence>
