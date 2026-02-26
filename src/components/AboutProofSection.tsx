@@ -7,7 +7,7 @@ import {
     Handshake,
     Code2,
     HeartHandshake,
-    CheckCircle2,
+    Globe,
     Users,
 } from "lucide-react";
 
@@ -30,32 +30,32 @@ function useCounter(target: number, isInView: boolean) {
 
 const stats = [
     {
-        icon: CheckCircle2,
-        value: 50,
-        suffix: "+",
-        label: "Projects Delivered",
-        color: "text-orange-500",
+        icon: Globe,
+        value: 7,
+        suffix: " days",
+        label: "Website Delivery",
+        color: "text-primary",
     },
     {
         icon: Clock,
         value: 100,
         suffix: "%",
         label: "On-Time Delivery",
-        color: "text-blue-500",
+        color: "text-primary",
     },
     {
         icon: Zap,
         value: 24,
         suffix: "hr",
         label: "Response Time",
-        color: "text-purple-500",
+        color: "text-primary",
     },
     {
         icon: Users,
         value: 20,
         suffix: "+",
         label: "Happy Clients",
-        color: "text-green-500",
+        color: "text-primary",
     },
 ];
 
@@ -101,102 +101,46 @@ const reasons = [
 const AboutProofSection = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
-    const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
     return (
-        <section id="about" className="py-24 relative bg-card/50 overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-background to-transparent z-20" />
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-20" />
-
-            <div className="absolute inset-0 opacity-[0.015] pointer-events-none">
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNhKSIvPjwvc3ZnPg==')]" />
-            </div>
-
-            <div className="absolute inset-0 overflow-hidden">
-                <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        x: [0, 50, 0],
-                        y: [0, -30, 0],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]"
-                />
-                <motion.div
-                    animate={{
-                        scale: [1.2, 1, 1.2],
-                        x: [50, -50, 50],
-                        y: [-30, 30, -30],
-                    }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[120px]"
-                />
-            </div>
+        <section id="about" className="py-24 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,107,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,107,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
             <div className="section-container relative z-10" ref={ref}>
                 <motion.div
-                    initial={{ opacity: 0, y: 40, scale: 1.1 }}
-                    animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6 }}
                     className="text-center mb-20"
                 >
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={isInView ? { opacity: 1 } : {}}
-                        transition={{ delay: 0.3 }}
-                        className="text-primary font-medium uppercase tracking-wider text-sm"
-                    >
+                    <span className="text-primary font-medium uppercase tracking-wider text-sm">
                         Why Choose Us
-                    </motion.span>
-                    <h2 className="mt-6 mb-6">
-                        <span className="block text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
-                            We actually{" "}
-                        </span>
-                        <span className="block text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
-                            <span className="text-gradient italic font-extrabold">give a damn.</span>
-                        </span>
+                    </span>
+                    <h2 className="mt-4 mb-4 text-5xl md:text-6xl font-black tracking-tight">
+                        We actually{" "}
+                        <span className="text-gradient italic">give a damn.</span>
                     </h2>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={isInView ? { opacity: 1 } : {}}
-                        transition={{ delay: 0.5 }}
-                        className="text-muted-foreground text-sm tracking-wide max-w-2xl mx-auto"
-                    >
+                    <p className="text-muted-foreground text-base max-w-xl mx-auto">
                         No fluff. Just proof and principles that drive results.
-                    </motion.p>
+                    </p>
                 </motion.div>
 
-                <div className="flex flex-wrap justify-center items-end gap-12 md:gap-16 lg:gap-20 mb-24">
+                {/* Stats row */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
                     {stats.map((stat, index) => {
                         const count = useCounter(stat.value, isInView);
                         return (
                             <motion.div
                                 key={stat.label}
-                                initial={{ opacity: 0, y: 60 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{
-                                    duration: 0.6,
-                                    delay: 0.7 + index * 0.15,
-                                    ease: "easeOut"
-                                }}
-                                style={{
-                                    transform: index % 2 === 0 ? 'translateY(-10px)' : 'translateY(10px)'
-                                }}
-                                className="text-center group"
+                                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                                className="bg-card/60 border border-border rounded-2xl p-6 text-center"
                             >
-                                <div className={`text-6xl md:text-7xl font-black ${stat.color} mb-2 tabular-nums`}>
+                                <div className={`text-5xl font-black ${stat.color} mb-1 tabular-nums`}>
                                     {count}{stat.suffix}
                                 </div>
-
-                                <div className="text-xs md:text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                                <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                                     {stat.label}
                                 </div>
                             </motion.div>
@@ -204,60 +148,38 @@ const AboutProofSection = () => {
                     })}
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Reasons grid with glassmorphism and animated icons */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {reasons.map((reason, index) => (
                         <motion.div
                             key={reason.title}
-                            initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                            transition={{
-                                duration: 0.6,
-                                delay: 1.2 + index * 0.1,
-                                type: "spring",
-                                stiffness: 100
-                            }}
-                            onHoverStart={() => setHoveredCard(index)}
-                            onHoverEnd={() => setHoveredCard(null)}
-                            className="group relative"
-                            style={{
-                                zIndex: hoveredCard === index ? 10 : 1,
-                            }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.5, delay: 0.4 + index * 0.08 }}
+                            className="group bg-transparent backdrop-blur-xl border border-white/30 hover:border-primary/60 rounded-2xl p-6 flex flex-col gap-4 shadow-xl transition-all duration-300 hover:shadow-2xl ring-1 ring-white/10 relative overflow-hidden"
+                            style={{ WebkitBackdropFilter: 'blur(24px)', backdropFilter: 'blur(24px)' }}
                         >
                             <motion.div
-                                whileHover={{
-                                    scale: 1.05,
-                                    y: -8,
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className="card-glow p-6 h-full flex flex-col relative overflow-hidden"
-                                style={{
-                                    transform: `rotate(${index % 2 === 0 ? -0.5 : 0.5}deg)`,
-                                }}
+                                className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shadow-md border border-white/20 relative"
+                                initial={{ scale: 0.7, opacity: 0, rotate: -45 }}
+                                animate={{ scale: 1.15, opacity: 1, rotate: 0 }}
+                                whileHover={{ scale: 1.25, rotate: 15 }}
+                                transition={{ duration: 1, type: 'spring', bounce: 0.4 }}
                             >
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    whileHover={{ opacity: 1 }}
-                                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"
-                                />
-
-                                <motion.div
-                                    whileHover={{ rotate: 360, scale: 1.1 }}
-                                    transition={{ duration: 0.6 }}
-                                    className="mb-4 relative z-10"
-                                >
-                                    <reason.icon className="text-primary" size={32} strokeWidth={1.5} />
-                                </motion.div>
-
-                                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors relative z-10">
+                                <reason.icon className="text-primary drop-shadow-lg" size={26} strokeWidth={1.5} />
+                                <span className="absolute top-0 left-0 w-full h-full pointer-events-none">
+                                    <span className="block w-2/3 h-1/3 bg-white/40 rounded-full blur-[8px] opacity-60 absolute top-1 left-1" />
+                                    <span className="block w-1/3 h-1/6 bg-white/60 rounded-full blur-[12px] opacity-80 absolute bottom-1 right-1" />
+                                </span>
+                            </motion.div>
+                            <div>
+                                <h3 className="text-base font-bold mb-1 group-hover:text-primary transition-colors duration-300">
                                     {reason.title}
                                 </h3>
-
-                                <p className="text-muted-foreground text-sm leading-relaxed relative z-10">
+                                <p className="text-muted-foreground text-sm leading-relaxed">
                                     {reason.description}
                                 </p>
-
-                                <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-tl-full" />
-                            </motion.div>
+                            </div>
                         </motion.div>
                     ))}
                 </div>

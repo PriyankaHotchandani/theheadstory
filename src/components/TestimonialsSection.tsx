@@ -4,38 +4,47 @@ import { Quote, Star, BadgeCheck } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Rahul Sharma",
-    role: "Founder, TechStartup",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-    quote:
-      "The Head Story transformed our entire digital presence. From website to social media, they delivered beyond our expectations. Highly recommend!",
-    rating: 5,
-    verified: true,
-  },
-  {
-    name: "Priya Patel",
-    role: "Marketing Head, D2C Brand",
+    name: "Komal Hotchandani",
+    role: "Counseling Psychologist",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
     quote:
-      "Their content strategy helped us grow from 5K to 50K followers in just 3 months. The team is responsive, creative, and truly understands Gen-Z marketing.",
+      "As a therapist, I needed a digital space that felt safe, welcoming, and professional for my clients. The Head Story didn't just build a website; they captured the exact emotional essence of my practice. To take my scattered thoughts and deliver a fully functional, beautifully designed platform in under a week is nothing short of miraculous. They completely removed the stress from the process.",
     rating: 5,
     verified: true,
   },
   {
-    name: "Amit Desai",
-    role: "Creator, 500K+ Subscribers",
+    name: "Sanjeev Shah",
+    role: "Entrepreneur",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    quote:
+      "I had a broad vision for my brand but no idea how to translate it onto a screen. The Head Story stepped in, organized my ideas, and engineered a website that frankly exceeded my expectations. Their attention to detail and technical execution are top-tier. It's rare to find an agency that actually listens before they build, but they nailed it on the first try.",
+    rating: 5,
+    verified: true,
+  },
+  {
+    name: "Advait More",
+    role: "Creator & Founder",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
     quote:
-      "Best editing team I've worked with. Fast turnaround, amazing quality, and they actually understand my style. It's like having an in-house team.",
+      "Content might be king, but staying consistent is exhausting. Handing my social media and content strategy over to The Head Story was the best investment I've made for my personal brand. They didn't just schedule posts; they built a cohesive, engaging narrative that my audience actually cares about. My digital presence has completely transformed since we started working together.",
     rating: 5,
     verified: true,
   },
   {
-    name: "Sneha Kapoor",
-    role: "Owner, Mumbai Boutique",
+    name: "Arjun Bharadwaj",
+    role: "Filmmaker & Director",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+    quote:
+      "Post-production is where a project is either made or broken. The Head Story brought an incredible level of polish and cinematic flair to our raw footage. Their editing is sharp, their pacing is intuitive, and their deep understanding of visual storytelling elevated our final product to a whole new level. They are absolute professionals in the cutting room.",
+    rating: 5,
+    verified: true,
+  },
+  {
+    name: "Vaishnavi Patil",
+    role: "Head of Marketing",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
     quote:
-      "They built our online store and now manage all our social media. Our online sales have grown 300% since we started working together!",
+      "We had hit a massive wall with our content calendar and were running out of things to say. We partnered with The Head Story for blog ideation, and it was a game-changer. They brought fresh, highly creative, and culturally relevant angles to industry topics we thought were exhausted. They don't just hand you a list of titles; they give you complete, engaging story frameworks.",
     rating: 5,
     verified: true,
   },
@@ -146,7 +155,7 @@ const TestimonialsSection = () => {
                   </div>
 
                   <p className="text-foreground text-lg md:text-xl leading-relaxed mb-10 relative z-10 font-light text-center md:text-left max-w-3xl">
-                    "{currentTestimonial.quote}"
+                    {currentTestimonial.quote}
                   </p>
 
                   <div className="flex items-center gap-5 relative z-10 justify-center md:justify-start">

@@ -163,21 +163,6 @@ const WorkSection = () => {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-20 text-center"
-        >
-          <p className="text-muted-foreground mb-6 text-lg">
-            These are just the highlights. We've got more.
-          </p>
-          <button className="btn-primary inline-flex items-center gap-2">
-            View Full Portfolio
-            <ArrowUpRight size={20} />
-          </button>
-        </motion.div>
       </div>
     </section>
   );
