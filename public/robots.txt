@@ -1,6 +1,7 @@
 User-agent: Googlebot
 Allow: /
 
+# Dummy change
 User-agent: Bingbot
 Allow: /
 
