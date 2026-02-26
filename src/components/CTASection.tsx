@@ -67,15 +67,6 @@ const CTASection = () => {
                 className="transition-transform group-hover:translate-x-1"
               />
             </a>
-            <a
-              href="https://wa.me/919999999999"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp flex items-center gap-2 text-lg px-10 py-5"
-            >
-              <MessageCircle size={20} />
-              WhatsApp Us
-            </a>
           </motion.div>
 
           {/* Response Time Note */}

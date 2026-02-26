@@ -34,16 +34,7 @@ const blogPosts = [
         category: "Production",
         featured: false,
     },
-    {
-        id: 4,
-        title: "No-Code Revolution: Building Fast, Scaling Faster",
-        excerpt: "How we're leveraging no-code tools to deliver enterprise-level solutions in record time.",
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-        date: "Jan 20, 2026",
-        readTime: "7 min read",
-        category: "Tech",
-        featured: false,
-    },
+    // 4th article removed
 ];
 
 const BlogCard = ({
@@ -162,18 +153,7 @@ const BlogSection = () => {
                     ))}
                 </div>
 
-                {/* View All Button */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-center mt-12"
-                >
-                    <button className="btn-primary inline-flex items-center gap-2">
-                        View All Articles
-                        <ArrowRight size={20} />
-                    </button>
-                </motion.div>
+                {/* View All Button removed */}
             </div>
         </section>
     );

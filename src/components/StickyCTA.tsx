@@ -18,14 +18,7 @@ const StickyCTA = () => {
           Book a Call
           <ArrowRight size={16} />
         </a>
-        <a
-          href="https://wa.me/919999999999"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-whatsapp flex items-center justify-center gap-2 py-3 px-4"
-        >
-          <MessageCircle size={18} />
-        </a>
+        {/* WhatsApp CTA removed */}
       </div>
     </motion.div>
   );
