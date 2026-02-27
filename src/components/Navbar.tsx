@@ -111,7 +111,7 @@ const Navbar = () => {
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="fixed top-8 left-8 z-50"
+        className="fixed top-8 left-8 z-50 hidden sm:block"
       >
         <a href="#" className="block">
           <img
@@ -219,13 +219,13 @@ const Navbar = () => {
 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[200px]" />
 
-            <div className="relative h-full flex items-center justify-center">
-              <div className="max-w-4xl mx-auto px-8">
+            <div className="relative h-full flex flex-col justify-start items-center pt-8">
+              <div className="max-w-4xl mx-auto px-4 w-full">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="flex items-center gap-2 mb-12 justify-center"
+                  className="flex items-center gap-2 mb-4 justify-center"
                 >
                   <Sparkles className="text-primary" size={20} />
                   <span className="text-sm text-muted-foreground uppercase tracking-wider">
@@ -267,7 +267,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="mt-16 text-center"
+                  className="mt-6 text-center fixed left-0 right-0 bottom-16 w-full z-50"
                 >
                   <a
                     href="#contact"

@@ -17,7 +17,6 @@ const ContactForm = () => {
     name: "",
     email: "",
     company: "",
-    position: "",
     phone: "",
     description: "",
   });
@@ -32,16 +31,48 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
+    try {
+      // EmailJS integration
+      const serviceId = "your_service_id";
+      const templateId = "your_template_id";
+      const userId = "your_public_key";
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        phone: formData.phone,
+        description: formData.description,
+      };
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: userId,
+          template_params: templateParams,
+        }),
+      });
+      if (response.ok) {
+        setIsSubmitted(true);
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you within 24 hours.",
+        });
+      } else {
+        throw new Error("Failed to send email");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -186,7 +217,6 @@ const ContactForm = () => {
                     className="bg-secondary/50 border-border focus:border-primary"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address *</Label>
                   <Input
@@ -203,7 +233,7 @@ const ContactForm = () => {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
+                <div className="space-y-2 col-span-2">
                   <Label htmlFor="company">Company</Label>
                   <Input
                     id="company"
@@ -211,19 +241,7 @@ const ContactForm = () => {
                     placeholder="Your Company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="bg-secondary/50 border-border focus:border-primary"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="position">Position</Label>
-                  <Input
-                    id="position"
-                    name="position"
-                    placeholder="Your Role"
-                    value={formData.position}
-                    onChange={handleChange}
-                    className="bg-secondary/50 border-border focus:border-primary"
+                    className="bg-secondary/50 border-border focus:border-primary w-full"
                   />
                 </div>
               </div>
